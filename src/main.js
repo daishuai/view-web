@@ -1,8 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
+// 引入路由
+import router from "@/router/router";
+import VueRouter from "vue-router";
+import iView from "iview";
+import 'iview/dist/styles/iview.css'
 
 Vue.config.productionTip = false
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+Vue.use(VueRouter)
+Vue.use(iView)
+const app = new Vue({
+    render: h => h(App),
+    router
+});
+
+app.$mount('#app')
