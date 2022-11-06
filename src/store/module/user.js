@@ -13,7 +13,7 @@ import { setToken, getToken } from '@/libs/util'
 
 export default {
   state: {
-    userName: '',
+    username: '',
     userId: '',
     avatarImgPath: '',
     token: getToken(),
@@ -32,8 +32,8 @@ export default {
     setUserId (state, id) {
       state.userId = id
     },
-    setUserName (state, name) {
-      state.userName = name
+    setUsername (state, name) {
+      state.username = name
     },
     setAccess (state, access) {
       state.access = access
@@ -74,11 +74,11 @@ export default {
   },
   actions: {
     // 登录
-    handleLogin ({ commit }, { userName, password }) {
-      userName = userName.trim()
+    handleLogin ({ commit }, { username, password }) {
+      username = username.trim()
       return new Promise((resolve, reject) => {
         login({
-          userName,
+          username,
           password
         }).then(res => {
           const data = res.data
@@ -111,8 +111,9 @@ export default {
         try {
           getUserInfo(state.token).then(res => {
             const data = res.data
+            console.log(data)
             commit('setAvatar', data.avatar)
-            commit('setUserName', data.name)
+            commit('setUsername', data.name)
             commit('setUserId', data.user_id)
             commit('setAccess', data.access)
             commit('setHasGetInfo', true)
@@ -128,6 +129,7 @@ export default {
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
     getUnreadMessageCount ({ state, commit }) {
       getUnreadCount().then(res => {
+        console.log(state)
         const { data } = res
         commit('setMessageCount', data)
       })
@@ -135,6 +137,7 @@ export default {
     // 获取消息列表，其中包含未读、已读、回收站三个列表
     getMessageList ({ state, commit }) {
       return new Promise((resolve, reject) => {
+        console.log(state)
         getMessage().then(res => {
           const { unread, readed, trash } = res.data
           commit('setMessageUnreadList', unread.sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
@@ -155,6 +158,7 @@ export default {
     // 根据当前点击的消息的id获取内容
     getContentByMsgId ({ state, commit }, { msg_id }) {
       return new Promise((resolve, reject) => {
+        console.log(reject)
         let contentItem = state.messageContentStore[msg_id]
         if (contentItem) {
           resolve(contentItem)
