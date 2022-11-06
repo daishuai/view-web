@@ -17,6 +17,6 @@ const app = new Vue({
     router,
     store,
     config
-});
+})
 
 app.$mount('#app')
