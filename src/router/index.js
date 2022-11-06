@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from '@/router/routers'
 import {getToken} from '@/libs/util'
+import config from '@/config'
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -29,10 +30,10 @@ router.beforeEach((to, from, next) => {
         // 已登录且要跳转的页面是登录页
         next({
             // 调转到首页
-            name: this.$config.homeName
+            name: config.homeName
         })
     } else {
-
+        next()
     }
 })
 export default router

@@ -16,9 +16,9 @@ Vue.prototype.$config = config
 Vue.use(VueRouter)
 Vue.use(iView)
 const app = new Vue({
-    render: h => h(App),
     router,
-    store
+    store,
+    render: h => h(App)
 })
 
 app.$mount('#app')
