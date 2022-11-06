@@ -33,6 +33,7 @@ export default {
         console.log(res)
         this.getUserInfo().then(res => {
           console.log(res)
+          // 详解 router.push() https://xie.infoq.cn/article/ede331cef7631470bf260b065
           this.$router.push({
             name: config.homeName
           })
