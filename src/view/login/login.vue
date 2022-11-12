@@ -20,6 +20,7 @@ import LoginForm from '@/components/login-form'
 import {mapActions} from 'vuex'
 
 export default {
+    name: 'login',
     components: {
         LoginForm
     },
