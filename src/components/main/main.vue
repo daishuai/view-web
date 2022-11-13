@@ -7,7 +7,10 @@
                :style="{overflow: 'hidden'}">
             <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed"
                        @on-select="turnToPage" :menu-list="menuList">
-
+                <div class="logo-con">
+                    <img v-show="!collapsed" :src="maxLogo" key="max-logo" alt="大Logo">
+                    <img v-show="collapsed" :src="minLogo" key="min-logo" alt="小Logo">
+                </div>
             </side-menu>
         </Sider>
         <Layout>
@@ -23,20 +26,34 @@
 
 <script>
 import SideMenu from '@/components/main/components/side-menu/side-menu'
+import maxLogo from '@/assets/images/logo.jpg'
+import minLogo from '@/assets/images/logo-min.jpg'
 
 export default {
     name: 'Main',
     components: {SideMenu},
     data() {
         return {
-            collapsed: false
+            collapsed: false,
+            minLogo,
+            maxLogo
         }
     },
     // 当其依赖的属性的值发生变化时，计算属性会重新计算，反之，则使用缓存中的属性值。
     // https://www.cnblogs.com/zhilu/p/15252046.html
     computed: {
         menuList() {
-            return []
+            return [
+                {
+                    path: '',
+                    name: 'doc',
+                    meta: {
+                        title: '文档',
+                        href: 'https://lison16.github.io/iview-admin-doc/#/',
+                        icon: 'ios-book'
+                    }
+                }
+            ]
         }
     },
 
