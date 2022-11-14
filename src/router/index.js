@@ -27,7 +27,6 @@ router.beforeEach((to, from, next) => {
         // 未登录且要跳转的页面是登录页
         next()
     } else if (token && to.name === LOGIN_PAGE_NAME) {
-        // 已登录且要跳转的页面是登录页
         next({
             // 调转到首页
             name: config.homeName

@@ -1,5 +1,6 @@
 import config from '@/config'
 import Cookies from 'js-cookie'
+import {forEach} from '@/libs/tools'
 
 const {cookieExpires, useI18n} = config
 
@@ -39,4 +40,29 @@ export const getToken = () => {
 
 export const localRead = (key) => {
     return localStorage.getItem(key) || ''
+}
+
+export const hasChild = (item) => {
+    return item.children && item.children.length !== 0
+}
+
+export const getMenuByRouter = (list) => {
+    let res = []
+    forEach(list, item => {
+        if (!item.meta || (item.meta && !item.meta.hideInMenu)) {
+            let obj = {
+                icon: (item.meta && item.meta.icon) || '',
+                name: item.name,
+                meta: item.meta
+            }
+            if (hasChild(item) || (item.meta && item.meta.showAlways)) {
+                obj.children = getMenuByRouter(item.children)
+            }
+            if (item.meta && item.meta.href) {
+                obj.href = item.meta.href
+            }
+            res.push(res)
+        }
+    })
+    return res
 }

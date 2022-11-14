@@ -43,17 +43,7 @@ export default {
     // https://www.cnblogs.com/zhilu/p/15252046.html
     computed: {
         menuList() {
-            return [
-                {
-                    path: '',
-                    name: 'doc',
-                    meta: {
-                        title: '文档',
-                        href: 'https://lison16.github.io/iview-admin-doc/#/',
-                        icon: 'ios-book'
-                    }
-                }
-            ]
+            return this.$store.getters.menuList
         }
     },
 
