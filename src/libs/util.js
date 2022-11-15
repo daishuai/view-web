@@ -61,7 +61,7 @@ export const getMenuByRouter = (list) => {
             if (item.meta && item.meta.href) {
                 obj.href = item.meta.href
             }
-            res.push(res)
+            res.push(obj)
         }
     })
     return res
