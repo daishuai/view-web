@@ -4,6 +4,7 @@ import axios from '@/libs/api.request'
 import routers from '@/router/routers'
 
 const HAS_ROUTERS_FLAG = 'hasRouters'
+const USER_ROUTERS = 'userRouters'
 
 export default {
     state: {
@@ -33,7 +34,6 @@ export default {
                     password
                 }).then(res => {
                     const data = res.data
-                    console.log(data)
                     const username = data.result.username
                     commit('setToken', username)
                     // 已登录且要跳转的页面是登录页
@@ -47,9 +47,9 @@ export default {
                             method: 'get'
                         }).then(res => {
                             localStorage.setItem(HAS_ROUTERS_FLAG, true)
-                            console.log(res.data)
                             const items = res.data.result
                             items.forEach(item => routers.push(item))
+                            localStorage.setItem(USER_ROUTERS, JSON.stringify(routers));
                         })
                     }
                     resolve()
