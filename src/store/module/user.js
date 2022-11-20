@@ -1,10 +1,5 @@
 import {getUserInfo, login, logout} from '@/api/user'
 import {getToken, setToken} from '@/libs/util'
-import axios from '@/libs/api.request'
-import routers from '@/router/routers'
-
-const HAS_ROUTERS_FLAG = 'hasRouters'
-const USER_ROUTERS = 'userRouters'
 
 export default {
     state: {
@@ -36,22 +31,6 @@ export default {
                     const data = res.data
                     const username = data.result.username
                     commit('setToken', username)
-                    // 已登录且要跳转的页面是登录页
-                    if (!localStorage.getItem(HAS_ROUTERS_FLAG)) {
-                        // 获取用户资源
-                        axios.request({
-                            url: 'auth/resources_as_tree',
-                            params: {
-                                username
-                            },
-                            method: 'get'
-                        }).then(res => {
-                            localStorage.setItem(HAS_ROUTERS_FLAG, true)
-                            const items = res.data.result
-                            items.forEach(item => routers.push(item))
-                            localStorage.setItem(USER_ROUTERS, JSON.stringify(routers));
-                        })
-                    }
                     resolve()
                 }).catch(err => {
                     reject(err)
@@ -80,8 +59,11 @@ export default {
                 try {
                     getUserInfo(state.token).then(res => {
                         const data = res.data
+                        console.log(data)
                         commit('setUsername', data.name)
                         commit('setAccess', data.access)
+                        commit('setMenuList', data.result.resources)
+                        localStorage.setItem(state.USER_RESOURCE_CACHE, JSON.stringify(data.result.resources))
                         resolve(data)
                     }).catch(err => {
                         reject(err)
