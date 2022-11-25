@@ -5,6 +5,7 @@ import {forEach} from '@/libs/tools'
 const {cookieExpires, useI18n} = config
 
 export const TOKEN_KEY = 'token'
+export const USER_RESOURCE_CACHE_KEY = 'user-resource'
 
 export const showTitle = (item, vm) => {
     let {title, __titleIsFunction__} = item.meta
@@ -36,6 +37,14 @@ export const getToken = () => {
     } else {
         return false
     }
+}
+
+export const cacheUserResource = (menuList) => {
+    localStorage.setItem(USER_RESOURCE_CACHE_KEY, menuList)
+}
+
+export const getUserResource = () => {
+    return localRead(USER_RESOURCE_CACHE_KEY)
 }
 
 export const localRead = (key) => {

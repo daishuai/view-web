@@ -1,5 +1,5 @@
 import {getUserInfo, login, logout} from '@/api/user'
-import {getToken, setToken} from '@/libs/util'
+import {cacheUserResource, getToken, setToken} from '@/libs/util'
 
 export default {
     state: {
@@ -63,7 +63,7 @@ export default {
                         commit('setUsername', data.name)
                         commit('setAccess', data.access)
                         commit('setMenuList', data.result.resources)
-                        localStorage.setItem(state.USER_RESOURCE_CACHE, JSON.stringify(data.result.resources))
+                        cacheUserResource(JSON.stringify(data.result.resources))
                         resolve(data)
                     }).catch(err => {
                         reject(err)

@@ -8,6 +8,7 @@ import store from '@/store'
 import config from '@/config'
 import 'iview/dist/styles/iview.css'
 import i18n from '@/local'
+import Cookies from 'js-cookie'
 
 Vue.config.productionTip = false
 /**
@@ -20,7 +21,14 @@ Vue.use(i18n)
 const app = new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+    mounted() {
+
+        window.addEventListener('beforeunload', () => {
+            Cookies.remove('token')
+            localStorage.clear()
+        })
+    }
 })
 
 app.$mount('#app')

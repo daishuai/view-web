@@ -1,4 +1,4 @@
-import {getMenuByRouter} from '@/libs/util'
+import {getMenuByRouter, getUserResource} from '@/libs/util'
 import routers from '@/router/routers'
 
 
@@ -13,7 +13,7 @@ export default {
     },
     getters: {
         menuList: (state) => {
-            const cacheMenuList = localStorage.getItem(state.USER_RESOURCE_CACHE)
+            const cacheMenuList = getUserResource()
             if (cacheMenuList) {
                 return getMenuByRouter(JSON.parse(cacheMenuList))
             }
